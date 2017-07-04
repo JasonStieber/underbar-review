@@ -334,7 +334,7 @@
         var iterator = function(value) { return value + 1; };
         var numbers = [1, 2, 2, 3, 4, 4];
 
-        expect(_.uniq(_.each(numbers,iterator))).to.eql([1, 2, 3, 4]);
+        expect(_.uniq(_.map(numbers,iterator))).to.eql([2, 3, 4, 5]);
         // line 337 is a modifed line. make sure this code is right
       });
 
