@@ -157,12 +157,13 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    if(accumulator === undefined){}
     _.each(collection, function(item) {
-      if(accumulator === undefined) {
-        accumulator = item;
+      if(accumulator === undefined) { accumulator = item; }
       // } else if(iterator(accumulator, item) === undefined){
-       } else { accumulator = iterator(accumulator, item);}
+      else {
+         accumulator = iterator(accumulator, item);
+         if(accumulator === undefined) { accumulator = 0;}
+      }
     });
     return accumulator;
   };
@@ -274,7 +275,7 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
