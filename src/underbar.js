@@ -185,13 +185,11 @@
   _.every = function(collection, iterator) {
     if(iterator === undefined){
       return _.reduce(collection, function(overalTruth, item){
-        console.log("what is  ture? " + overalTruth);
         if(item && overalTruth){ return true;}
         else { return false; }
       },true);
     }
     return _.reduce(collection, function(overalTruth, item){
-      console.log("what is  ture? " + overalTruth);
       if(iterator(item) && overalTruth){ return true;}
       else { return false; }
     },true);
@@ -201,6 +199,16 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    if(iterator === undefined){
+      return _.reduce(collection, function(overalTruth, item){
+        if(item || overalTruth){ return true;}
+        else { return false; }
+      },false);
+    }
+    return _.reduce(collection, function(overalTruth, item){
+      if(iterator(item) || overalTruth){ return true;}
+      else { return false; }
+    },false);
     // TIP: There's a very clever way to re-use every() here.
   };
 
@@ -287,6 +295,25 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    let alreadyCalled = {};
+    let result;
+    return function() {
+      let functionStr = '';
+      functionStr += func.toString();
+      for( var i = 0; i < arguments.length; i++){
+        functionStr += arguments[i].toString();
+      }
+      if (alreadyCalled[functionStr] === undefined) {
+        // TIP: .apply(this, arguments) is the standard way to pass on all of the
+        // infromation from one function call to another.
+        result = func.apply(this, arguments);
+        alreadyCalled[functionStr] = result;
+        return result;
+      }else {
+        return alreadyCalled[functionStr];
+      }
+      // The new function always returns the originally computed result.
+    };
 
   };
 
@@ -297,6 +324,11 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    let var1 = arguments[2];
+    let var2 = arguments[3];
+    return setTimeout(function(){
+      func(var1,var2)
+    },wait);
   };
 
 
@@ -311,6 +343,7 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
   };
 
 
