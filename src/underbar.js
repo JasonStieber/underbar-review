@@ -343,6 +343,19 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    let ranArray = array.slice(0);
+    for(let i = 0; i < array.length; i++){
+      let placesLeft = array.length - i;
+      let ranNum = Math.random() * placesLeft;
+      let spot = Math.floor(ranNum);
+      ranArray = ranArray.slice(spot).concat(ranArray.slice(0,spot));
+      console.log(ranArray);
+      console.log(ranNum);
+      console.log(spot);
+      console.log(Math.random());
+    }
+
+    return ranArray;
 
   };
 
