@@ -183,6 +183,18 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
+    if(iterator === undefined){
+      return _.reduce(collection, function(overalTruth, item){
+        console.log("what is  ture? " + overalTruth);
+        if(item && overalTruth){ return true;}
+        else { return false; }
+      },true);
+    }
+    return _.reduce(collection, function(overalTruth, item){
+      console.log("what is  ture? " + overalTruth);
+      if(iterator(item) && overalTruth){ return true;}
+      else { return false; }
+    },true);
     // TIP: Try re-using reduce() here.
   };
 
